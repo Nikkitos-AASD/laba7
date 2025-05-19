@@ -1,0 +1,5 @@
+digraph "CFG for 'check' function" {
+	label="CFG for 'check' function";
+
+	Node0x567e4b99e7c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{1:\l|  %2 = icmp slt i32 %0, 100\l  %3 = shl nsw i32 %0, 1\l  %4 = add nuw nsw i32 %0, 100\l  %5 = select i1 %2, i32 %3, i32 %4\l  ret i32 %5\l}"];
+}

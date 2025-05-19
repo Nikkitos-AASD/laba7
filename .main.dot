@@ -1,0 +1,5 @@
+digraph "CFG for 'main' function" {
+	label="CFG for 'main' function";
+
+	Node0x567e4b9a12c0 [shape=record,color="#b70d28ff", style=filled, fillcolor="#b70d2870" fontname="Courier",label="{0:\l|  %1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull\l... dereferenceable(1) @.str, i32 noundef 84)\l  ret i32 0\l}"];
+}
