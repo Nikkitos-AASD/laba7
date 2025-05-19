@@ -10,7 +10,8 @@ sudo apt update
 
 – получает актуальные метаданные репозиториев.
 
-![Вывод apt update](./screen/image.png)
+![image](https://github.com/user-attachments/assets/160b600e-5220-47e5-92b4-538574f0c830)
+
 
 1.2 Установка Clang, LLVM, Opt и Graphviz
 
@@ -23,7 +24,8 @@ sudo apt install -y clang llvm opt graphviz
 – `opt` для применения оптимизаций к IR,
 – `graphviz` для конвертации DOT в изображения.
 
-![Вывод apt install](./screen/image_copy.png)
+![image](https://github.com/user-attachments/assets/5be927a2-b852-42e7-adfc-816b51f739f8)
+
 
 1.3 Проверка версий
 
@@ -35,7 +37,8 @@ dot -V
 
 Убедился, что версии совместимы и без ошибок при запуске.
 
-![Проверка версий](./screen/image_copy_2.png)
+ ![image](https://github.com/user-attachments/assets/a21cf14f-0ead-4541-b42c-2cc9f6455194)
+
 
 
 ## 2. Исходный пример
@@ -67,7 +70,8 @@ int main(void) {
 * `check` содержит две ветви (`<` и `>=`).
 * В `main` фиксированное `value` позволяет предвычисления.
 
-![Код main.c](./screen/image_copy_3.png)
+![image](https://github.com/user-attachments/assets/f4accec0-1ad9-45eb-b819-6a3d96cc126d)
+
 
 
 
@@ -91,7 +95,8 @@ clang -Xclang -ast-dump -fsyntax-only main.c
 * `IfStmt` в `check`.
 * `CallExpr` для `printf`.
 
-![Дамп AST](./screen/image_copy_4.png)
+![image](https://github.com/user-attachments/assets/b45782de-fdfe-40e3-85e0-3df07f4c2c83)
+
 
 
 
@@ -114,8 +119,7 @@ clang -S -emit-llvm main.c -o main_unopt.ll
 * Инструкции `store` и `load`.
 * Функция `@check` разбита на `if.then`, `if.else`, `if.end`.
 
-![main\_unopt.ll начало](./screen/image_copy_5.png)
-
+![image](https://github.com/user-attachments/assets/0cc75566-c3fd-481d-b82a-547190e3c37f)
 
 
 ## 5. Проведение оптимизаций
@@ -130,7 +134,8 @@ clang -O0 -S -emit-llvm main.c -o main_O0.ll
 * Сохраняются все `alloca`, `load`, `store`.
 * `@check` как отдельная функция.
 
-![main\_O0.ll начало](./screen/image_copy_6.png)
+![image](https://github.com/user-attachments/assets/f58685e2-03a3-4c95-8aa8-32b661ae0b7e)
+
 
 ### 5.2 Уровень O2
 
@@ -151,7 +156,7 @@ clang -O2 -S -emit-llvm main.c -o main_O2.ll
 2. `check` исчезает, её тело перенесено.
 3. `printf` получает предвычисленное значение.
 
-![main\_O2.ll фрагмент](./screen/image_copy_7.png)
+![image](https://github.com/user-attachments/assets/3ec4bbd2-fd05-45fe-98b4-0198c8aee3c4)
 
 ### 5.3 Сравнение O0 и O2
 
@@ -163,7 +168,8 @@ diff -u main_O0.ll main_O2.ll | head -n 25
 * Появился SSA‑код вместо `load`/`store`.
 * Вызов `check` заменён арифметическими инструкциями.
 
-![diff main\_O0.ll main\_O2.ll](./screen/image_copy_8.png)
+![image](https://github.com/user-attachments/assets/2154cd31-3ae0-42db-bd3e-ac96ca9a0b2d)
+
 
 
 
@@ -179,7 +185,8 @@ diff -u main_O0.ll main_O2.ll | head -n 25
 
    Создаётся скрытый файл `.main.dot`.
 
-   ![Список файлов с .main.dot](./screen/image_copy_9.png)
+   ![image](https://github.com/user-attachments/assets/2e266b83-7d03-45fd-9fc0-5406981d54f3)
+
 
 2. Конвертация в PNG и просмотр:
 
@@ -190,8 +197,8 @@ diff -u main_O0.ll main_O2.ll | head -n 25
 
    * Если условие статично известно, CFG сводится к одному блоку.
    * Иначе: два блока (true/false).
+    ![image](https://github.com/user-attachments/assets/7fa1969e-3231-45da-9f98-c17b4ee7da59)
 
-   ![cfg\_main.png](./screen/image_copy_10.png)
 
 
 
@@ -218,7 +225,9 @@ opt -S --passes="correlated-propagation" temp.ll -o main_constprop.ll
 * `LIMIT` заменён на `100`.
 * Сохраняются `alloca`, `lo\ad`.
 
-![main\_constprop.ll фрагмент](./screen/image_copy_11.png)
+
+![image](https://github.com/user-attachments/assets/56f8b2f1-b352-4838-ba19-908d9d79f4a5)
+
 
 ### 8.2 Сравнение с O2
 
@@ -229,6 +238,6 @@ diff -u main_constprop.ll main_O2.ll | sed -n '1,20p'
 * `constprop` лишь подставляет константы.
 * `-O2` добавляет `mem2reg`, `inline`, `simplifycfg`.
 
-![diff constprop vs O2](./screen/image_copy_12.png)
+![Uploading image.png…]()
 
 Вывод: `constprop` заменяет литералы, но для полного удаления памяти и ветвлений нужен комплекс оптимизаций `-O2`.
